@@ -117,7 +117,20 @@ function App() {
   const showpush = () => {
     clevertap.event.push("Push_Trigger");
   };
+  const exitIntent = () =>
+  {
+    clevertap.event.push("Exit Intent");
+  };
 
+  const prodviewed = () =>
+  {
+    clevertap.event.push("Product Viewed", {
+       "Product name":"Casio Chronograph Watch",
+       "Category":"Mens Accessories",
+       "Price":59.99,
+       "Date": new Date()
+     });
+  };
   // Handle push notification when button clicked
   const handleClick = () => {
     setIsButtonClicked(true);
@@ -141,9 +154,34 @@ function App() {
       console.error("CleverTap SDK is not available");
     }
   };
+  const charged = () =>
+  {
+    clevertap.event.push("Charged", {
+      "Amount": 300,
+      "Payment mode": "Credit Card",
+      "Charged ID": 24052013,
+      "Items": [
+          {
+              "Category": "Books",
+              "Book name": "The Millionaire next door",
+              "Quantity": 1
+          },
+          {
+              "Category": "Books",
+              "Book name": "Achieving inner zen",
+              "Quantity": 1
+          },
+          {
+              "Category": "Books",
+              "Book name": "Chuck it, let's do it",
+              "Quantity": 5
+          }
+      ]
+  });
+  };
 
   // Function to show the custom pop-up
-  const showCustomPopUp = () => {
+  const showPopup = () => {
     clevertap.event.push("Popup_Trigger");
   };
 
@@ -231,8 +269,11 @@ function App() {
         
         <div className="button-group">
           <button onClick={handleClick} className="action-btn">Push Notification</button>
-          <button onClick={showCustomPopUp} className="action-btn">Show Custom Pop-Up</button>
+          <button onClick={showPopup} className="action-btn">Show Custom Pop-Up</button>
           <button onClick={showpush} className="action-btn">Send Push</button>
+          <button onClick={charged} className="action-btn">Charged</button>
+          <button onClick={exitIntent} className="action-btn">Exit !</button>
+          <button onClick={prodviewed} className="action-btn">View Product</button>
           <button onClick={nativeD} className="action-btn">Native Display</button>
         </div>
         
